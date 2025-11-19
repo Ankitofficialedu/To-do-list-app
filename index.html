@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body> 
+  <h2>🧠 Simple Quiz</h2>
+
+ <p id="question"></p>
+ <div id="options"></div>
+ <p id="result"></p> 
+<button id="nextBtn" onclick="nextQuestion()">Next</button>
+
+
+  <script>
+     
+   let array=[
+    {
+      question: "1. What is JavaScript?",
+      options: ["A. Programming language", "B. Car", "C. Fruit", "D. Game"],
+      answer: "A. Programming language"
+    },
+
+    {
+        question: "2. Which symbol is used for comments in JavaScript?",
+        options: ["A. //", "B. <!-- -->", "C. #", "D. * *"],
+        answer: "A. //"
+      },
+
+      {
+        question: "3. What does HTML stand for?",
+        options: ["A. Hyper Text Markup Language", "B. High Text Machine Language", "C. Home Tool Markup Language", "D. None"],
+        answer: "A. Hyper Text Markup Language"
+      }
+      
+  ];
+  let index=0;
+  let score=0;
+   
+    function showquestion() {
+document.getElementById("question").innerHTML=array[index].question;
+
+let opts = array[index].options
+  .map(
+    (opt) =>
+    `<p><input type="radio" name="option" value="${opt}"> ${opt}</p>`
+  )
+  .join("");
+document.getElementById("options").innerHTML=opts;
+document.getElementById("result").innerHTML ="";
+    }
+
+     function nextQuestion() {
+      let selected = document.querySelector('input[name="option"]:checked');
+        if (!selected) {
+    alert("Please select an option!");
+    return;
+  }
+  // check answer here
+  if (selected.value === array[index].answer) {
+    score++;
+    index++;
+  }
+  
+  if (index <array.length) {
+    showquestion();
+  }
+   else {
+    document.getElementById("question").innerHTML= "🎉 Quiz Completed!";
+    document.getElementById("options").innerHTML= "";
+    document.getElementById("result").innerHTML= `🏆 Your Score: ${score} / ${array.length}`
+  }
+}
+showquestion();
+  </script>  
+</body>
+</html>
